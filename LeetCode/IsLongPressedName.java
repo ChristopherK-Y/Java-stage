@@ -8,7 +8,7 @@ public class IsLongPressedName {
         }
         int nPtr = 0;
         int tPtr = 0;
-        while (tPtr < typed.length() && nPtr < name.length()) {
+        while (tPtr < typed.length() && nPtr < name.length()) { 
             if (name.charAt(nPtr) == typed.charAt(tPtr)) {
                 nPtr++;
             } else if (typed.charAt(tPtr) != typed.charAt((tPtr - 1))) {
