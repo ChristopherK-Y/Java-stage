@@ -14,7 +14,7 @@ public class FindNumsAppearOnce {
     public int[] findNumsAppearOnce(int[] array) {
         int twoNumber = 0;//twoNumber为两个单身狗的异或
         for (int oneElement : array) {
-            twoNumber ^= oneElement;
+            twoNumber ^= oneElement; 
         }
         //找到twoNumber中的一个1（找最后一个1，比较简单）（twoNumber中的每一个1都代表这这两个单身狗在这一位上是不一样的）
         twoNumber &= -twoNumber;
