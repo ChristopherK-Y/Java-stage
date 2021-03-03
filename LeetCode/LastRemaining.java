@@ -6,7 +6,7 @@ import java.util.ArrayList;
 public class LastRemaining {
     /**
      * 本方法是模拟了小朋友分礼物的全过程
-     * @param n 总共的小朋友个数
+     * @param n 总共的小朋友个数 
      * @param m 当前指定的数字m
      * @return 编号为几的小朋友获得了最终的礼物
      */
