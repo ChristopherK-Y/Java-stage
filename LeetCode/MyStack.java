@@ -39,7 +39,7 @@ public class MyStack {
             }
             return queue2.remove();
         } else {
-            int size = queue2.size();
+            int size = queue1.size();
             for (int i = 0; i < size - 1; i++) {
                 queue2.add(queue1.remove());
             }
@@ -68,13 +68,13 @@ public class MyStack {
             queue2.add(peek);
             return peek;
         }
+    }
 
-        /**
-         * Returns whether the stack is empty.
-         */
-        public boolean empty () {
-            return queue1.isEmpty() && queue2.isEmpty();
-        }
+    /**
+     * Returns whether the stack is empty.
+     */
+    public boolean empty() {
+        return queue1.isEmpty() && queue2.isEmpty();
     }
 }
 
