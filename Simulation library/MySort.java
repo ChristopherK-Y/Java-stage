@@ -76,7 +76,7 @@ public class MySort {
      * 复杂度:
      * 时间: O(n^(1.3~2))计算有些麻烦,这里不进行解释
      * 空间: O(1)
-     *
+     * <p>
      * 希尔排序由于进行了分组,所以交换过程中,元素的顺序完全被打乱,所以不具有稳点性
      *
      * @param array 待排序的数组
@@ -137,10 +137,10 @@ public class MySort {
      * ②然后每次从堆顶取出一个最大的,思路和选择排序一样
      * ③由于是头元素更换,所以,把堆顶拿走之后,再次进行向下调整
      * ④直到有序区间的元素<=1个就可以退出了
-     *
+     * <p>
      * 复杂度:
      * 时间: 最好/最差/平均: O(n * log(n))
-     * 空间: 最好/最差: O(1)/O(log(n))
+     * 空间: 最好/最差: O(1)
      *
      * @param array 要进行排序的数组
      */
@@ -184,9 +184,235 @@ public class MySort {
         }
     }
 
+    /**
+     * 快速排序
+     * <p>
+     * 过程为：
+     * ①首先选定基准值，这里一般选择待排序区间的下界(array(left))
+     * ②进行一次划分(partition)(partition有三种方法,下面会进行详述),结果应该为 : {[ <= pivot ] [ pivot ] [ >= pivot ]} 将一个无序的数组,分为三部分
+     * ③对[ <= pivot ] 和 [ >= pivot ]的这两个小区间分别进行相同的操作
+     * ④就这样,不停的进行递归操作,最终整个数组就会变的有序
+     * <p>
+     * 复杂度:
+     * 时间: 最好/平均: O(n * log(n))(递归执行的时候,整颗树的高度为log(n),每一次partition都需要对数组进行一遍遍历,那么,在树的每一层都相当于对整个数组进行依次遍历,所以时间复杂度为O(n),最终就是O(n * log(n)))
+     * 最差: O(n^2) (如果数组已经有序,那么每次partition都把数组走了一遍(是个等差数列),此时就会退化为冒泡排序即O(n^2))
+     * 空间: 最好: O(log(n)) (递归过程化成树就是一颗二叉树,所以最优的情况就是树的高度)
+     * 最差: O(n) (数组已经有序,递归过程可以看出单支树,此时树的高度为n)
+     *
+     * @param array 待排序的数组
+     */
+    public static void quickSort(long[] array) {
+        //quickSort1(array, 0, array.length - 1);
+        //quickSort2(array, 0, array.length - 1);
+        quickSort3(array, 0, array.length - 1);
+    }
+
+    /**
+     * 快速排序第一种
+     * <p>
+     * partition1:
+     * 划分过程中,区间情况为{[ pivot ] [ <= pivot ] [ 无序区间 ] [ >= pivot ]}
+     * 思路为:
+     * ①从右往左找到第一个 < pivot的值(为什么一开始是从右往左,不是从左往右,可以思考一下,待会儿下面会进行详讲)
+     * ②从左往右找到第一个 > pivot的值
+     * ③将这两个值进行交换
+     * ④继续不断重复上述①②③过程,直到左指针和右指针相遇
+     * ⑤然后将整个数组最左边的pivot和现在的左(或右(因为左指针和右指针现在重合,所以选择谁都一样))指针所指向的数组元素进行交换
+     * (可以保证当前左/右指针指向的元素一定是小于pivot的,下面会进行说明)
+     * ⑥此次partition过程结束
+     *
+     * @param array 待排序的数组
+     * @param left  待排序数组区间下界
+     * @param right 待排序数组区间下界
+     */
+    public static void quickSort1(long[] array, int left, int right) {
+        if (left < right) {//左右指针需要合法
+            int l = left;//待会需要用到边界,所以此处用另外一个
+            int r = right;//待会需要用到边界,所以此处用另外一个
+            long pivot = array[l];
+            while (l < r) {
+                while (l < r && array[r] >= pivot) {
+                    r--;
+                }
+                while (l < r && array[l] <= pivot) {
+                    l++;
+                }
+                swap(array, l, r);
+            }
+            swap(array, left, l);
+            quickSort1(array, left, l - 1);
+            quickSort1(array, l + 1, right);
+        }
+    }
+
+    /**
+     * 对一个数组中的两个数,进行交换
+     *
+     * @param array 被操作数组
+     * @param x     第一个数的下标
+     * @param y     第二个数的下标
+     */
+    private static void swap(long[] array, int x, int y) {
+        long temp = array[x];
+        array[x] = array[y];
+        array[y] = temp;
+    }
+
+    /**
+     * 快速排序第二种
+     * <p>
+     * partition2:
+     * 划分过程中,区间情况为{[ <= pivot ] [ 无序区间 ] [ >= pivot ]}
+     * 思路为:
+     * ①首先把pivot(即最左边的元素存起来),因此,此时的array[left]位置是可被覆盖的
+     * ②从右往左找到一个 < pivot的值,然后将这个数,填入左指针指向的数组单元中(①中已经说了,当前左指针位置可被覆盖),而此时array[right]变的可被覆盖了
+     * ③从左往右找到一个 > pivot的值,然后将这个数,填入右指针指向的数组单元中,此时左指针指向的数组单元又可被覆盖了
+     * ④依次重复上述②③过程,最终,左右指针相遇,循环结束
+     * ⑤将pivot的值,直接填入left/right所指向的数组单元
+     * ⑥此次partition结束
+     *
+     * @param array 待排序的数组
+     * @param left  待排序数组区间下界
+     * @param right 待排序数组区间下界
+     */
+    public static void quickSort2(long[] array, int left, int right) {
+        if (left < right) {
+            int l = left;
+            int r = right;
+            long pivot = array[l];
+            while (l < r) {
+                while (l < r && array[r] >= pivot) {
+                    r--;
+                }
+                array[l] = array[r];
+                while (l < r && array[l] <= pivot) {
+                    l++;
+                }
+                array[r] = array[l];
+            }
+            array[l] = pivot;
+            quickSort2(array, left, l - 1);
+            quickSort2(array, l + 1, right);
+        }
+    }
+
+    /**
+     * 快速排序第三种
+     * <p>
+     * partition3:
+     * 划分过程中,区间情况为{[ pivot ] [ < pivot ] [ >= pivot ] [ 无序区间 ]}
+     * low         high now
+     * 思路为:
+     * ①首先设定三个指针(其实其中的high没用,为了好理解,暂时先使用三个)
+     * low指针指向  [ < pivot ] 区间的最后一个元素
+     * high指针指向 [ >= pivot ]区间的最后一个元素
+     * now指针指向  [ 无序区间 ] 的第一个元素(now会不断的进行++)
+     * ②初始化,三个指针,low和high由于没有元素,所以此时都指向当前区间的头即传入的left,now指针执行当前区间的第二个元素即left+1
+     * ③如果array[now] <  pivot,那么他应该和[ >= pivot ]区间的第一个元素(low+1)进行交换,然后low区间扩大,即low++,由于此时的high区间改变,所以high++(这一步没有必要,方便理解,暂时不管)
+     * ④如果array[now] >= pivot,那么直接让high++即可,相当于high区间把属于他的元素吃进了肚子(由于high区间的最后一个元素时刻再now-1的位置)
+     * ⑤不断重复上述③④过程,直到,now指针,走到了整个数组的区间的最右边(now <= right),循环结束
+     * ⑥最后,将pivot(即array[left])和[ < pivot ]区间的最后一个元素交换
+     * ⑦此次partition结束
+     *
+     * @param array 待排序的数组
+     * @param left  待排序数组区间下界
+     * @param right 待排序数组区间下界
+     */
+    public static void quickSort3(long[] array, int left, int right) {
+        if (left < right) {
+            int low = left;
+            //int high = left;//方便理解,最终理解的话,直接去掉
+            int now = left + 1;
+            long pivot = array[left];
+            while (now <= right) {
+                if (array[now] < pivot) {
+                    swap(array, now, low + 1);
+                    low++;
+                }
+                //high++;//方便理解,最终理解的话,直接去掉
+                now++;
+            }
+            swap(array, left, low);
+            quickSort3(array, left, low - 1);
+            quickSort3(array, low + 1, right);
+        }
+    }
+
+    /**
+     * 归并排序
+     *
+     * @param array 待排序的数组
+     */
+    public static void mergeSort(long[] array) {
+        mergeSortOfRange(array, 0, array.length);
+    }
+
+    /**
+     * 归并排序
+     * 过程为：（采用递归思路）
+     * ①首先将数组分为两部分，从中间切开
+     * ②然后左边和右边分别再次进行递归的归并排序
+     * ③等左右两边都有序了，那么把这两部分进行一次合并就好了（合并两个有序数组，合并完成后，依然保持数组为有序的）
+     * ④排序完成
+     *
+     * 对于步骤①：如果待排序的区间内的元素 <=1 个了，那么待排序的区间已经有序，直接返回就好了
+     * 这唯一的一个递归出口
+     *
+     * 复杂度：
+     * 时间： 最好/平均/最坏: O(n * log(n)) (对于归并排序,没有最好和最坏的情况,无论怎样,都是同样的分开递归)
+     * 归并排序的过程如果拿图像来表示,可以近似看成完全二叉树,所以数的高度是log(n),每一层都可以看成是对整个数组的一次O(n)复制,那么最终就是O(n * log(n))
+     * 空间: 最好/最坏: O(n) 仅仅定义一个全局的数组,一直反复使用就好
+     * @param array 待排序的数组
+     * @param start 待排序数组下界
+     * @param end 待排序数组上界
+     */
+    public static void mergeSortOfRange(long[] array, int start, int end) {
+        int size = end - start;
+        if (size <= 1) {
+            return;
+        }
+        int mid = start + (end - start) / 2;
+        mergeSortOfRange(array, start, mid);
+        mergeSortOfRange(array, mid, end);
+        merge(array, start, mid, end);
+    }
+
+    /**
+     * 对两个有序数组,进行合并
+     *
+     * @param array 存储两个有序数组的数组
+     * @param start 有序数组1下界
+     * @param mid 有序数组2下界
+     * @param end 数组区间上界
+     */
+    private static void merge(long[] array, int start, int mid, int end) {
+        long[] copyArray = new long[end - start];
+        int left = start;
+        int right = mid;
+        int now = 0;
+        while (left < mid && right < end) {
+            if (array[left] <= array[right]) {
+                copyArray[now++] = array[left++];
+            } else {
+                copyArray[now++] = array[right++];
+            }
+        }
+        if (left == mid) {
+            while (right < end) {
+                copyArray[now++] = array[right++];
+            }
+        } else {
+            while (left < mid) {
+                copyArray[now++] = array[left++];
+            }
+        }
+        //将合并完成的数组,写回原数组
+        System.arraycopy(copyArray, 0, array, start, end - start);
+    }
+
     public static void main(String[] args) {
         long[] array = {9, 7, 8, 0, 4, 3, 1, 2, 5, 6};
-        shellSort(array);
+        mergeSort(array);
         System.out.println(Arrays.toString(array));
     }
 
