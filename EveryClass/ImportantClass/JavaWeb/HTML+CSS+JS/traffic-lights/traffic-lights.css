@@ -1,0 +1,60 @@
+* {
+    box-sizing: border-box; /* 让 width/height 包含 padding 和 border */
+}
+
+html,
+body {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: aqua;
+}
+
+.traffic-lights {
+    width: 400px;
+    height: 100px;
+    background-color: black;
+    border-radius: 50px;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.traffic-lights div {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    border: 2px solid white;
+    text-align: center;
+    line-height: 80px;
+    font-size: 2em;
+    color: white;
+}
+
+.red-on {
+    background-color: red;
+}
+
+.green-on {
+    background-color: green;
+}
+
+.yellow-on {
+    background-color: yellow;
+}
+
+
+
+.red-off {
+    background-color: gray;
+}
+
+.green-off {
+    background-color: gray;
+}
+
+.yellow-off {
+    background-color: gray;
+}
