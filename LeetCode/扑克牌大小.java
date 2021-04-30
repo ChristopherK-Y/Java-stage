@@ -6,7 +6,7 @@ public class 扑克牌大小 {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         HashMap<String, Integer> map = new HashMap<String, Integer>();
-        map.put("3", 0);
+        map.put("3", 0); 
         map.put("4", 1);
         map.put("5", 2);
         map.put("6", 3);
