@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="zh-hans" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>查询结果书单</title>
+</head>
+<body>
+  <ol>
+    <li th:each="book : ${bookList}">
+      <p th:text="${book.name}"></p>
+    </li>
+  </ol>
+</body>
+</html>
