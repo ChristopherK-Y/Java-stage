@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>图片（相册）展示设计Ⅵ</title>
+  <link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+
+<figure class="sample" th:each="figure : ${figureList}">
+  <img src="" th:src="${figure.imgHref}" alt="figure.id">
+  <figcaption>
+    <div>
+      <h2 th:text="${figure.mainDescription}"></h2>
+      <h4 th:text="${figure.secondaryDescription}"></h4>
+    </div>
+  </figcaption>
+  <a th:href="@{'/details?id='+${figure.id}}"></a>
+</figure>
+
+</body>
+</html>
