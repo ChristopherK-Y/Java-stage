@@ -17,9 +17,9 @@ public class 客似云来 {
     }
 
     private static long fun(int x) {
-        int one = 1;
-        int two = 0;
-        int three = 0;
+        long one = 1;
+        long two = 0;
+        long three = 0;
         for (int i = 1; i < x; i++) {
             three += two;
             two = one;
