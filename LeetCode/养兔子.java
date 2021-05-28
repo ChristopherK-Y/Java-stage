@@ -6,7 +6,7 @@ import java.util.Scanner;
  * https://www.nowcoder.com/questionTerminal/71d3849a19f04a1591c415964ac148f1
  */
 public class 养兔子 {
-    public static void main(String[] args) {
+    public static void main(String[] args) { 
         fun();
         Scanner sc = new Scanner(System.in);
         while (sc.hasNextInt()) {
