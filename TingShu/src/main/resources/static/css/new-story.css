@@ -1,0 +1,101 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    height: 100vh;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: aqua;
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: white;
+    padding: 12px;
+
+    border-radius: 4px;
+    box-shadow: -3px -3px 10px rgba(255, 255, 255, 1),
+    3px 3px 10px rgba(0, 0, 0, .9),
+    3px 3px 10px rgba(0, 0, 0, .6),
+    3px 3px 10px rgba(0, 0, 0, .3);
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 8px;
+    letter-spacing: .4em;
+}
+
+.form-shell {
+    width: 100%;
+}
+
+.form-shell form {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 8px;
+}
+
+.form-shell input {
+    width: 100%;
+    font-size: 1.2rem;
+    padding: 14px;
+}
+
+.buttons {
+    margin-top: 8px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+button {
+    width: 120px;
+    height: 40px;
+}
+
+.preview {
+    width: 100%;
+    padding-top: 8px;
+    padding-bottom: 8px;
+}
+
+.preview audio {
+    width: 100%;
+}
+
+.outer {
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+    height: 300px;
+}
+
+#logPanel {
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    right: -17px;
+
+    display: block;
+    height: 300px;
+    background-color: darkslategray;
+    padding: 14px;
+    color: wheat;
+    line-height: 1.4em;
+    font-family: 'Courier New', Courier, monospace;
+    overflow-y: scroll;
+}

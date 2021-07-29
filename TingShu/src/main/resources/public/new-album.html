@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="zh-hans">
+<head>
+    <meta charset="UTF-8">
+    <title>听书 | 新建专辑</title>
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/new-album.css">
+</head>
+<body>
+<header>
+    <section class="brand">
+        <a href="/"><span class="logo">听</span></a>
+        <span class="brand-name">比特听书</span>
+    </section>
+    <section class="search">
+        <form method="get" action="/">
+            <input type="text" name="keyword">
+            <button type="submit">查找</button>
+        </form>
+    </section>
+    <section class="user">
+        <a href="/register.html">注册</a>
+        <a href="/login.html">登录</a>
+    </section>
+</header>
+<main>
+    <form method="post" action="/new-album" enctype="multipart/form-data">
+        <div class="innerBox">新建专辑</div>
+        <div class="input">
+            <label for="name">专辑名</label>
+            <input type="text" id="name" name="name">
+        </div>
+        <div class="input">
+            <label for="brief">专辑描述</label>
+            <textarea id="brief" name="brief"></textarea>
+        </div>
+        <div class="input2">
+            <label for="cover">封面图</label>
+            <input type="file" id="cover" name="cover">
+        </div>
+        <div class="input2">
+            <label for="header">底图</label>
+            <input type="file" id="header" name="header">
+        </div>
+        <div class="input">
+            <button id="btn" type="submit">保存</button>
+        </div>
+    </form>
+</main>
+
+<script src="js/util.js"></script>
+<script src="js/new-album.js"></script>
+</body>
+</html>

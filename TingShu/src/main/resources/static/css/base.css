@@ -1,0 +1,24 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    height: 100vh;
+}
+
+:root {
+    --margin: 140px;
+}
+
+header {
+    padding-left: var(--margin);
+    padding-right: var(--margin);
+    height: 70px;
+    background-color: aqua;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
